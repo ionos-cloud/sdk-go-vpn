@@ -51,7 +51,7 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "1.0.0"
+	Version = "v1.0.1"
 )
 
 // APIClient manages communication with the VPN Gateways API v0.0.1
