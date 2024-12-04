@@ -1,9 +1,9 @@
 /*
- * VPN Gateways
+ * IONOS Cloud VPN Gateway API
  *
- * POC Docs for VPN gateway as service
+ * The Managed VPN Gateway service provides secure and scalable connectivity, enabling encrypted communication between your IONOS cloud resources in a VDC and remote networks (on-premises, multi-cloud, private LANs in other VDCs etc).
  *
- * API version: 0.0.1
+ * API version: 1.0.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -40,6 +40,7 @@ var (
 		"https://vpn.de-fra.ionos.com",
 		"https://vpn.de-txl.ionos.com",
 		"https://vpn.es-vit.ionos.com",
+		"https://vpn.gb-bhx.ionos.com",
 		"https://vpn.gb-lhr.ionos.com",
 		"https://vpn.us-ewr.ionos.com",
 		"https://vpn.us-las.ionos.com",
@@ -142,7 +143,7 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 	cfg := &Configuration{
 		DefaultHeader:      make(map[string]string),
 		DefaultQueryParams: url.Values{},
-		UserAgent:          "ionos-cloud-sdk-go-vpn/vv1.0.1",
+		UserAgent:          "ionos-cloud-sdk-go-vpn/v1.0.2",
 		Debug:              false,
 		Username:           username,
 		Password:           password,
@@ -164,6 +165,10 @@ func NewConfiguration(username, password, token, hostUrl string) *Configuration 
 			{
 				URL:         getServerUrl(hostUrl),
 				Description: "Production es-vit",
+			},
+			{
+				URL:         getServerUrl(hostUrl),
+				Description: "Production gb-bhx",
 			},
 			{
 				URL:         getServerUrl(hostUrl),

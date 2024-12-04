@@ -1,9 +1,9 @@
 /*
- * VPN Gateways
+ * IONOS Cloud VPN Gateway API
  *
- * POC Docs for VPN gateway as service
+ * The Managed VPN Gateway service provides secure and scalable connectivity, enabling encrypted communication between your IONOS cloud resources in a VDC and remote networks (on-premises, multi-cloud, private LANs in other VDCs etc).
  *
- * API version: 0.0.1
+ * API version: 1.0.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -51,10 +51,10 @@ const (
 	RequestStatusFailed  = "FAILED"
 	RequestStatusDone    = "DONE"
 
-	Version = "v1.0.1"
+	Version = "1.0.2"
 )
 
-// APIClient manages communication with the VPN Gateways API v0.0.1
+// APIClient manages communication with the IONOS Cloud VPN Gateway API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

@@ -1,9 +1,9 @@
 /*
- * VPN Gateways
+ * IONOS Cloud VPN Gateway API
  *
- * POC Docs for VPN gateway as service
+ * The Managed VPN Gateway service provides secure and scalable connectivity, enabling encrypted communication between your IONOS cloud resources in a VDC and remote networks (on-premises, multi-cloud, private LANs in other VDCs etc).
  *
- * API version: 0.0.1
+ * API version: 1.0.0
  * Contact: support@cloud.ionos.com
  */
 
@@ -27,12 +27,15 @@ type WireguardGateway struct {
 	InterfaceIPv4CIDR *string `json:"interfaceIPv4CIDR,omitempty"`
 	// Describes a range of IP V6 addresses in CIDR notation.
 	InterfaceIPv6CIDR *string `json:"interfaceIPv6CIDR,omitempty"`
-	// The network connection for your gateway. __Note__: all connections must belong to the same datacenterId.
+	// The network connection for your gateway. __Note__: all connections must belong to the same datacenterId. There is a limit to the total number of connections. Please refer to product documentation.
 	Connections *[]Connection `json:"connections"`
 	// PrivateKey used for WireGuard Server
 	PrivateKey *string `json:"privateKey"`
 	// IP port number
 	ListenPort *int32 `json:"listenPort,omitempty"`
+	// Gateway performance options.  See product documentation for full details.\\ Options: - STANDARD - STANDARD_HA - ENHANCED - ENHANCED_HA - PREMIUM - PREMIUM_HA
+	Tier              *string            `json:"tier,omitempty"`
+	MaintenanceWindow *MaintenanceWindow `json:"maintenanceWindow,omitempty"`
 }
 
 // NewWireguardGateway instantiates a new WireguardGateway object
@@ -48,6 +51,8 @@ func NewWireguardGateway(name string, gatewayIP string, connections []Connection
 	this.PrivateKey = &privateKey
 	var listenPort int32 = 51820
 	this.ListenPort = &listenPort
+	var tier string = "STANDARD"
+	this.Tier = &tier
 
 	return &this
 }
@@ -59,6 +64,8 @@ func NewWireguardGatewayWithDefaults() *WireguardGateway {
 	this := WireguardGateway{}
 	var listenPort int32 = 51820
 	this.ListenPort = &listenPort
+	var tier string = "STANDARD"
+	this.Tier = &tier
 	return &this
 }
 
@@ -366,6 +373,82 @@ func (o *WireguardGateway) HasListenPort() bool {
 	return false
 }
 
+// GetTier returns the Tier field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *WireguardGateway) GetTier() *string {
+	if o == nil {
+		return nil
+	}
+
+	return o.Tier
+
+}
+
+// GetTierOk returns a tuple with the Tier field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WireguardGateway) GetTierOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.Tier, true
+}
+
+// SetTier sets field value
+func (o *WireguardGateway) SetTier(v string) {
+
+	o.Tier = &v
+
+}
+
+// HasTier returns a boolean if a field has been set.
+func (o *WireguardGateway) HasTier() bool {
+	if o != nil && o.Tier != nil {
+		return true
+	}
+
+	return false
+}
+
+// GetMaintenanceWindow returns the MaintenanceWindow field value
+// If the value is explicit nil, the zero value for MaintenanceWindow will be returned
+func (o *WireguardGateway) GetMaintenanceWindow() *MaintenanceWindow {
+	if o == nil {
+		return nil
+	}
+
+	return o.MaintenanceWindow
+
+}
+
+// GetMaintenanceWindowOk returns a tuple with the MaintenanceWindow field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WireguardGateway) GetMaintenanceWindowOk() (*MaintenanceWindow, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.MaintenanceWindow, true
+}
+
+// SetMaintenanceWindow sets field value
+func (o *WireguardGateway) SetMaintenanceWindow(v MaintenanceWindow) {
+
+	o.MaintenanceWindow = &v
+
+}
+
+// HasMaintenanceWindow returns a boolean if a field has been set.
+func (o *WireguardGateway) HasMaintenanceWindow() bool {
+	if o != nil && o.MaintenanceWindow != nil {
+		return true
+	}
+
+	return false
+}
+
 func (o WireguardGateway) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name != nil {
@@ -398,6 +481,14 @@ func (o WireguardGateway) MarshalJSON() ([]byte, error) {
 
 	if o.ListenPort != nil {
 		toSerialize["listenPort"] = o.ListenPort
+	}
+
+	if o.Tier != nil {
+		toSerialize["tier"] = o.Tier
+	}
+
+	if o.MaintenanceWindow != nil {
+		toSerialize["maintenanceWindow"] = o.MaintenanceWindow
 	}
 
 	return json.Marshal(toSerialize)
